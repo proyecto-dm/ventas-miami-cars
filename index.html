@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas Miami Cars - Tu Próximo Vehículo te Espera</title>
+    <meta name="description" content="Encuentra tu auto ideal en Ventas Miami Cars. Inventario exclusivo, financiamiento flexible y atención personalizada.">
+
+    <meta property="og:title" content="Ventas Miami Cars">
+    <meta property="og:description" content="Descubre nuestro inventario de vehículos premium y planes de financiamiento a tu medida.">
+    <meta property="og:image" content="https://tusitio.com/og-image.jpg">
+    <link rel="canonical" href="https://tusitio.com/">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111827;
+            color: #F3F4F6;
+        }
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .card-gradient {
+            background: linear-gradient(180deg, rgba(31, 41, 55, 0.5) 0%, rgba(17, 24, 39, 0.9) 100%);
+        }
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: #3b82f6;
+            border-radius: 10px;
+            border: 2px solid #1f2937;
+        }
+        .filter-select {
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+        /* Estilos para el Lightbox de la galería */
+        #image-lightbox {
+            transition: opacity 0.3s ease;
+            z-index: 100; /* Asegura que esté por encima de todo */
+        }
+        #lightbox-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain; /* Mantiene la proporción sin deformar */
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+
+    <header class="bg-gray-900/80 backdrop-blur-sm fixed w-full z-50 top-0 shadow-lg shadow-blue-500/10">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl md:text-2xl font-bold text-white tracking-wider">VENTAS <span class="text-blue-500">MIAMI CARS</span></a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#inventario" class="text-gray-300 hover:text-blue-500 transition duration-300">Inventario</a>
+                <a href="#nosotros" class="text-gray-300 hover:text-blue-500 transition duration-300">Nosotros</a>
+                <a href="#financiamiento" class="text-gray-300 hover:text-blue-500 transition duration-300">Financiamiento</a>
+                <a id="contact-whatsapp-btn-desktop" href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Contacto</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#inventario" class="block py-2 text-gray-300 hover:text-blue-500">Inventario</a>
+            <a href="#nosotros" class="block py-2 text-gray-300 hover:text-blue-500">Nosotros</a>
+            <a href="#financiamiento" class="block py-2 text-gray-300 hover:text-blue-500">Financiamiento</a>
+            <a id="contact-whatsapp-btn-mobile" href="#" class="block mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-center">Contacto</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section h-screen flex items-center justify-center text-center pt-16">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-4">Encuentra el Auto de tus Sueños</h1>
+                <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Explora nuestro inventario exclusivo de vehículos seleccionados para ti.</p>
+                 <a href="#inventario" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">Ver Inventario</a>
+            </div>
+        </section>
+
+        <section id="inventario" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-2">Nuestro Inventario</h2>
+                <p class="text-center text-gray-400 mb-12">Usa los filtros para encontrar exactamente lo que buscas.</p>
+                
+                <div id="filters" class="bg-gray-800 p-6 rounded-lg mb-12 shadow-md">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                        <select id="filter-make" class="filter-select w-full p-2 rounded text-white"></select>
+                        <select id="filter-year" class="filter-select w-full p-2 rounded text-white"></select>
+                        <select id="filter-bodyType" class="filter-select w-full p-2 rounded text-white"></select>
+                        <select id="filter-price" class="filter-select w-full p-2 rounded text-white"></select>
+                         <select id="filter-mileage" class="filter-select w-full p-2 rounded text-white"></select>
+                    </div>
+                    <div class="flex justify-center mt-6 gap-4">
+                        <button id="apply-filters-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">Aplicar Filtros</button>
+                        <button id="reset-filters-btn" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">Limpiar Filtros</button>
+                    </div>
+                </div>
+
+                <div id="inventory-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                     <p id="loading-message" class="col-span-full text-center text-gray-400 py-16">Cargando inventario...</p>
+                </div>
+             
+                <div id="no-results" class="hidden text-center text-gray-400 py-16">
+                    <h3 class="text-2xl font-bold mb-2">No se encontraron resultados</h3>
+                    <p>Intenta ajustar tus filtros de búsqueda.</p>
+                </div>
+                
+                <div id="pagination-container"></div>
+            </div>
+        </section>
+
+        <section id="nosotros" class="py-20 bg-gray-800/50">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://i.ibb.co/MDSzmnfg/concesionario.png" alt="[Imagen de un concesionario de autos moderno y limpio]" loading="lazy" class="rounded-lg shadow-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-4">Tu Concesionario de Confianza</h2>
+                     <p class="text-gray-400 mb-4">Con más de 15 años de experiencia en el sector automotriz, nuestra pasión es conectar a nuestros clientes con vehículos excepcionales. Creemos en la transparencia, la calidad y un servicio al cliente sin igual.</p>
+                    <p class="text-gray-400">Cada auto en nuestro inventario pasa por una rigurosa inspección de más de 100 puntos para garantizar tu seguridad y satisfacción. Ven y vive la experiencia Ventas Miami Cars.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="financiamiento" class="py-20 bg-blue-900/20 text-center">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold mb-4">Financiamiento a tu Medida</h2>
+                 <p class="text-gray-300 max-w-2xl mx-auto mb-8">Ofrecemos planes de financiamiento flexibles que se adaptan a tus necesidades. Trabajamos con los principales bancos para ofrecerte las mejores tasas.</p>
+                <a id="apply-now-whatsapp-btn" href="#" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105">Aplica Ahora</a>
+            </div>
+        </section>
+
+        <section id="contacto" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6">
+                 <h2 class="text-3xl font-bold text-center mb-12">Ponte en Contacto</h2>
+                <div class="max-w-lg mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <form id="contact-form">
+                        <div class="mb-4">
+                             <label for="name" class="block text-gray-300 mb-2">Nombre</label>
+                            <input type="text" id="name" name="name" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                        <div class="mb-4">
+                             <label for="email" class="block text-gray-300 mb-2">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                         <div class="mb-4">
+                            <label for="message" class="block text-gray-300 mb-2">Mensaje</label>
+                            <textarea id="message" name="message" rows="4" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                         </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">Enviar Mensaje</button>
+                        <p id="form-success-message" class="text-green-400 mt-4 text-center hidden"></p>
+                     </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 border-t border-gray-700 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>© 2025 Ventas Miami Cars. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="car-modal" class="modal fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 opacity-0 pointer-events-none z-50"
+        role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div id="modal-content" class="modal-content bg-gray-800 rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto transform scale-95">
+            </div>
+    </div>
+
+    <div id="image-lightbox" class="fixed inset-0 bg-black/80 flex items-center justify-center opacity-0 pointer-events-none cursor-pointer" onclick="closeLightbox()">
+        <img id="lightbox-image" src="" alt="Vista ampliada" class="rounded-lg shadow-2xl">
+    </div>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        // --- Configuration ---
+        const WHATSAPP_NUMBER = '584124165937';
+        const CONTACT_EMAIL = 'proyectodm0713@gmail.com';
+        
+        // =================================================================================
+        // --- URL de Google Sheets con tu inventario ---
+        // =================================================================================
+        const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSMxVL6SFVU3JRZjGeLM2SIWo-dJ9hgYh1OSwx-qlzULxR7ALGUo7ZlANA2Jki-H8jf3LTQjUh-oGBG/pub?gid=1730125342&single=true&output=csv';
+
+        // --- Global Variables ---
+        let cars = [];
+        let filteredCars = [];
+        let currentPage = 1;
+        const itemsPerPage = 9;
+
+        // --- Filter Options (se llenarán dinámicamente) ---
+        const filterOptions = {
+            years: [],
+            makes: [],
+            bodyTypes: [],
+            priceRanges: {
+                "0": "Cualquier Precio", "1": "10000-15000", "2": "15000-20000", "3": "20000-25000", "4": "25000-30000", "5": "30000-35000", "6": "35000-40000", "7": "40000-45000", "8": "45000-50000", "9": "50000-55000", "10": "55000-60000", "11": "60000-65000", "12": "65000-70000"
+            },
+            mileageRanges: {
+                "0": "Cualquier Millaje", "1": "0-10000", "2": "10000-20000", "3": "20000-30000", "4": "30000-40000", "5": "40000-50000", "6": "50000-60000", "7": "60000-70000", "8": "70000-80000", "9": "80000-90000", "10": "90000-100000", "11": "100000-110000", "12": "110000-120000", "13": "120000-130000", "14": "130000-140000", "15": "140000-150000", "16": "150000-160000"
+            }
+        };
+
+        // --- DOM Elements ---
+        const inventoryGrid = document.getElementById('inventory-grid');
+        const loadingMessage = document.getElementById('loading-message');
+        const noResultsDiv = document.getElementById('no-results');
+        const modal = document.getElementById('car-modal');
+        const modalContent = document.getElementById('modal-content');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const contactForm = document.getElementById('contact-form');
+        const formSuccessMessage = document.getElementById('form-success-message');
+        const imageLightbox = document.getElementById('image-lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        
+        const filterMake = document.getElementById('filter-make');
+        const filterYear = document.getElementById('filter-year');
+        const filterBodyType = document.getElementById('filter-bodyType');
+        const filterPrice = document.getElementById('filter-price');
+        const filterMileage = document.getElementById('filter-mileage');
+        const applyFiltersBtn = document.getElementById('apply-filters-btn');
+        const resetFiltersBtn = document.getElementById('reset-filters-btn');
+
+        // =================================================================================
+        // --- FUNCIÓN: Cargar y procesar datos desde Google Sheets ---
+        // =================================================================================
+        async function loadInventoryFromSheet(sheetURL) {
+            if (!sheetURL || sheetURL === 'PEGA_AQUÍ_TU_ENLACE_DE_GOOGLE_SHEETS_PUBLICADO_COMO_CSV') {
+                inventoryGrid.innerHTML = '<p class="col-span-full text-center text-yellow-400 py-16">Error: La URL de Google Sheets no está configurada en el código.</p>';
+                return [];
+            }
+            try {
+                const response = await fetch(sheetURL);
+                const csvText = await response.text();
+                const rows = csvText.trim().split(/\r?\n/);
+                const headers = rows.shift().split(',');
+
+                return rows.map(row => {
+                    const values = row.split(',');
+                    const carObject = {};
+                    headers.forEach((header, index) => {
+                        carObject[header.trim()] = values[index].trim();
+                    });
+                    
+                    // Convertir tipos de datos y procesar galería
+                    return {
+                        id: parseInt(carObject.id, 10),
+                        year: parseInt(carObject.year, 10),
+                        make: carObject.make,
+                        name: carObject.name,
+                        bodyType: carObject.bodyType,
+                        drivetrain: carObject.drivetrain,
+                        transmission: carObject.transmission,
+                        vin: carObject.vin,
+                        mileage: parseInt(carObject.mileage, 10),
+                        price: parseInt(carObject.price, 10),
+                        image: carObject.image,
+                        // Asume que las URLs de la galería están separadas por punto y coma ';'
+                        gallery: carObject.gallery ? carObject.gallery.split(';').map(url => url.trim()) : [],
+                        description: carObject.description
+                    };
+                });
+            } catch (error) {
+                console.error("Error al cargar los datos del inventario:", error);
+                inventoryGrid.innerHTML = '<p class="col-span-full text-center text-red-500 py-16">Hubo un error al cargar el inventario. Por favor, inténtalo más tarde.</p>';
+                return [];
+            }
+        }
+
+
+        // --- Funciones de Lightbox ---
+        window.openLightbox = function(imageUrl) {
+            lightboxImage.src = imageUrl;
+            imageLightbox.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        window.closeLightbox = function() {
+            imageLightbox.classList.add('opacity-0', 'pointer-events-none');
+            lightboxImage.src = "";
+        }
+
+        // --- Pagination Functions ---
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredCars.length / itemsPerPage);
+            const paginationContainer = document.getElementById('pagination-container');
+            if (totalPages <= 1) { paginationContainer.innerHTML = ''; return; }
+            let paginationHTML = '<div class="flex justify-center items-center space-x-2 mt-8">';
+            if (currentPage > 1) { paginationHTML += `<button onclick="changePage(${currentPage - 1})" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition duration-300">Anterior</button>`; }
+            const startPage = Math.max(1, currentPage - 2);
+            const endPage = Math.min(totalPages, currentPage + 2);
+            if (startPage > 1) { paginationHTML += `<button onclick="changePage(1)" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition duration-300">1</button>`;
+            if (startPage > 2) { paginationHTML += '<span class="px-3 py-2 text-gray-400">...</span>'; } }
+            for (let i = startPage; i <= endPage; i++) { const isActive = i === currentPage;
+            const buttonClass = isActive ? 'px-3 py-2 bg-blue-600 text-white rounded-lg' : 'px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition duration-300';
+            paginationHTML += `<button onclick="changePage(${i})" class="${buttonClass}">${i}</button>`; }
+            if (endPage < totalPages) { if (endPage < totalPages - 1) { paginationHTML += '<span class="px-3 py-2 text-gray-400">...</span>'; } paginationHTML += `<button onclick="changePage(${totalPages})" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition duration-300">${totalPages}</button>`; }
+            if (currentPage < totalPages) { paginationHTML += `<button onclick="changePage(${currentPage + 1})" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition duration-300">Siguiente</button>`; }
+            paginationHTML += '</div>';
+            paginationContainer.innerHTML = paginationHTML;
+        }
+
+        window.changePage = function(page) {
+            currentPage = page;
+            populateInventory(filteredCars);
+            updatePagination();
+            document.getElementById('inventario').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function getPaginatedCars(carList) {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            return carList.slice(startIndex, startIndex + itemsPerPage);
+        }
+
+        // --- Functions ---
+        function populateInventory(carList) {
+            filteredCars = carList;
+            const paginatedCars = getPaginatedCars(carList);
+            inventoryGrid.innerHTML = '';
+            loadingMessage.classList.add('hidden');
+            noResultsDiv.classList.toggle('hidden', carList.length > 0);
+            paginatedCars.forEach(car => {
+                const card = `
+                    <div class="card-gradient rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer" onclick="openModal(${car.id})">
+                        <img src="${car.image}" alt="${car.name}" loading="lazy" class="w-full h-auto object-cover rounded-md max-h-96 mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/ffffff?text=Imagen+no+disponible';">
+                         <div class="p-6">
+                            <h3 class="text-xl font-bold text-white">${car.name}</h3>
+                            <p class="text-blue-400 font-semibold">${car.year}</p>
+                            <div class="mt-4 flex justify-between items-center text-gray-300">
+                                <span><strong class="text-white">${car.mileage.toLocaleString()}</strong> millas</span>
+                            </div>
+                            <div class="mt-4 text-2xl font-bold text-white">$${car.price.toLocaleString()} USD</div>
+                             <button class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Ver Detalles</button>
+                        </div>
+                    </div>`;
+                inventoryGrid.innerHTML += card;
+            });
+            updatePagination();
+        }
+
+        function populateFilters() {
+             // Llenar dinámicamente las opciones de los filtros a partir de los datos cargados
+            filterOptions.makes = [...new Set(cars.map(car => car.make))].sort();
+            filterOptions.years = [...new Set(cars.map(car => car.year))].sort((a, b) => b - a);
+            filterOptions.bodyTypes = [...new Set(cars.map(car => car.bodyType))].sort();
+
+            populateSelect(filterMake, filterOptions.makes, "Marca");
+            populateSelect(filterYear, filterOptions.years, "Año");
+            populateSelect(filterBodyType, filterOptions.bodyTypes, "Body Type");
+            populateRangeSelect(filterPrice, filterOptions.priceRanges, true);
+            populateRangeSelect(filterMileage, filterOptions.mileageRanges, false);
+        }
+
+        function populateSelect(selectElement, options, defaultText) {
+            selectElement.innerHTML = `<option value="">${defaultText}</option>`;
+            options.forEach(option => { selectElement.innerHTML += `<option value="${option}">${option}</option>`; });
+        }
+        
+        function populateRangeSelect(selectElement, ranges, isPrice) {
+            selectElement.innerHTML = '';
+            for (const key in ranges) {
+                const value = ranges[key];
+                let text;
+                if (key === "0") { text = value; } 
+                else if (isPrice) { const [min, max] = value.split('-').map(Number);
+                text = `$${min.toLocaleString()} - $${max.toLocaleString()}`; } 
+                else { const [min, max] = value.split('-').map(Number);
+                text = `${min.toLocaleString()} - ${max.toLocaleString()}`; }
+                selectElement.innerHTML += `<option value="${key}">${text}</option>`;
+            }
+        }
+
+        function applyFilters() {
+            let tempFilteredCars = [...cars];
+            const make = filterMake.value;
+            const year = filterYear.value;
+            const bodyType = filterBodyType.value;
+            const priceRangeKey = filterPrice.value;
+            const mileageRangeKey = filterMileage.value;
+            if (make) tempFilteredCars = tempFilteredCars.filter(c => c.make === make);
+            if (year) tempFilteredCars = tempFilteredCars.filter(c => c.year == year);
+            if (bodyType) tempFilteredCars = tempFilteredCars.filter(c => c.bodyType === bodyType);
+            
+            if (priceRangeKey !== "0") {
+                const [min, max] = filterOptions.priceRanges[priceRangeKey].split('-').map(Number);
+                tempFilteredCars = tempFilteredCars.filter(c => c.price >= min && c.price <= max);
+            }
+
+            if (mileageRangeKey !== "0") {
+                const [min, max] = filterOptions.mileageRanges[mileageRangeKey].split('-').map(Number);
+                tempFilteredCars = tempFilteredCars.filter(c => c.mileage >= min && c.mileage <= max);
+            }
+            
+            currentPage = 1;
+            populateInventory(tempFilteredCars);
+        }
+        
+        function resetFilters() {
+            document.querySelectorAll('#filters select').forEach(select => select.selectedIndex = 0);
+            currentPage = 1;
+            populateInventory(cars);
+        }
+
+       window.openModal = function(carId) {
+            const car = cars.find(c => c.id === carId);
+            if (!car) return;
+            
+            modalContent.innerHTML = `
+                <div class="relative">
+                    <button onclick="closeModal()" class="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 z-20">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                     </button>
+                    <div class="w-full h-64 md:h-96 bg-gray-700">
+                        <img id="main-modal-image" src="${car.image}" alt="${car.name}" class="w-full h-full object-cover">
+                    </div>
+                     <div class="p-6 md:p-8">
+                        <!-- Tamaño de fuente reducido para nombre, año y precio -->
+                        <h2 class="text-2xl font-bold text-white mb-1">${car.name} <span class="text-blue-400">${car.year}</span></h2>
+                        <p class="text-2xl font-bold text-blue-500 mb-3">$${car.price.toLocaleString()} USD</p>
+                        
+                        <!-- Contenedor de descripción con altura fija y scroll interno -->
+                        <div class="mb-6 max-h-[100px] overflow-y-auto bg-gray-700/30 p-3 rounded-lg">
+                            <p class="text-gray-300">${car.description}</p>
+                        </div>
+                         
+                         ${car.gallery?.length ?
+                        `
+                            <h4 class="text-xl font-bold text-white mb-4">Galería</h4>
+                            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-6">
+                                ${car.gallery.map(img => 
+                                `
+                                    <div class="aspect-w-1 aspect-h-1 cursor-pointer" onclick="openLightbox('${img}')">
+                                        <img src="${img}" alt="Galería de ${car.name}" class="w-full h-full object-cover rounded-md transition-transform transform hover:scale-105" loading="lazy">
+                                     </div>
+                                `).join('')}
+                            </div>
+                         ` : ''}
+                         
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center border-t border-b border-gray-700 py-4 mb-6">
+                            <div><p class="text-sm text-gray-400">Millaje</p><p class="font-bold text-lg">${car.mileage.toLocaleString()}</p></div>
+                            <div><p class="text-sm text-gray-400">Tipo</p><p class="font-bold text-lg">${car.bodyType || 'N/A'}</p></div>
+                            <div><p class="text-sm text-gray-400">Tracción</p><p class="font-bold text-lg">${car.drivetrain || 'N/A'}</p></div>
+                            <div><p class="text-sm text-gray-400">Transmisión</p><p class="font-bold text-lg">${car.transmission || 'N/A'}</p></div>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="buyOnWhatsApp('${car.name} ${car.year}')" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300 text-lg flex items-center justify-center gap-2">
+                                <!-- Ícono de WhatsApp oficial corregido -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                                </svg>
+                                Comprar
+                            </button>
+                        </div>
+                     </div>
+                </div>`;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeModal = function() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.add('scale-95');
+            document.body.style.overflow = 'auto';
+        }
+        
+        window.buyOnWhatsApp = function(carName = '') {
+            const message = carName ?
+            encodeURIComponent(`Hola, estoy interesad@ en comprar el ${carName}.`) : encodeURIComponent(`Hola, estoy interesad@ en sus vehículos y opciones de financiamiento.`);
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        }
+
+        function handleContactFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const subject = encodeURIComponent(`Nuevo Mensaje de Contacto de ${name}`);
+            const body = encodeURIComponent(`Has recibido un nuevo mensaje desde tu página web.\n\nNombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`);
+            window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+            formSuccessMessage.textContent = 'Enviado con éxito! Te contactaremos lo más pronto posible.';
+            formSuccessMessage.classList.remove('hidden');
+            contactForm.reset();
+            setTimeout(() => { formSuccessMessage.classList.add('hidden'); }, 5000);
+        }
+
+        // --- Event Listeners ---
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); closeLightbox(); } });
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        applyFiltersBtn.addEventListener('click', applyFilters);
+        resetFiltersBtn.addEventListener('click', resetFilters);
+        contactForm.addEventListener('submit', handleContactFormSubmit);
+        document.getElementById('contact-whatsapp-btn-desktop').addEventListener('click', (e) => { e.preventDefault(); buyOnWhatsApp(); });
+        document.getElementById('contact-whatsapp-btn-mobile').addEventListener('click', (e) => { e.preventDefault(); buyOnWhatsApp(); });
+        document.getElementById('apply-now-whatsapp-btn').addEventListener('click', (e) => { e.preventDefault(); buyOnWhatsApp(); });
+
+        // --- Initial Load ---
+        // Se llama a la nueva función para cargar los datos y luego se inicia la página.
+        cars = await loadInventoryFromSheet(GOOGLE_SHEET_URL);
+        if (cars.length > 0) {
+            populateInventory(cars);
+            populateFilters();
+        }
+    });
+    </script>
+</body>
+</html>
