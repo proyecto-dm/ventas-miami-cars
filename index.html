@@ -99,8 +99,12 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-2">Nuestro Inventario</h2>
                 <p class="text-center text-gray-400 mb-12">Usa los filtros para encontrar exactamente lo que buscas.</p>
-                
+
                 <div id="filters" class="bg-gray-800 p-6 rounded-lg mb-12 shadow-md">
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-4">
+                        <input id="search-bar" type="text" placeholder="Buscar por nombre..." class="filter-select w-full sm:max-w-md p-3 rounded text-white" />
+                        <select id="filter-sort-price" class="filter-select w-full sm:max-w-xs p-3 rounded text-white"></select>
+                    </div>
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                         <select id="filter-make" class="filter-select w-full p-2 rounded text-white"></select>
                         <select id="filter-year" class="filter-select w-full p-2 rounded text-white"></select>
@@ -117,12 +121,12 @@
                 <div id="inventory-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                      <p id="loading-message" class="col-span-full text-center text-gray-400 py-16">Cargando inventario...</p>
                 </div>
-             
+
                 <div id="no-results" class="hidden text-center text-gray-400 py-16">
                     <h3 class="text-2xl font-bold mb-2">No se encontraron resultados</h3>
                     <p>Intenta ajustar tus filtros de búsqueda.</p>
                 </div>
-                
+
                 <div id="pagination-container"></div>
             </div>
         </section>
@@ -130,7 +134,7 @@
         <section id="nosotros" class="py-20 bg-gray-800/50">
             <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
                 <div class="md:w-1/2">
-                    <img src="https://i.ibb.co/MDSzmnfg/concesionario.png" alt="[Imagen de un concesionario de autos moderno y limpio]" loading="lazy" class="rounded-lg shadow-lg">
+                    <img src="https://i.ibb.co/MDSzmnfg/concesionario.png" alt="concesionario" loading="lazy" class="rounded-lg shadow-lg">
                 </div>
                 <div class="md:w-1/2">
                     <h2 class="text-3xl font-bold mb-4">Tu Concesionario de Confianza</h2>
@@ -195,7 +199,7 @@
         // --- Configuration ---
         const WHATSAPP_NUMBER = '584124165937';
         const CONTACT_EMAIL = 'proyectodm0713@gmail.com';
-        
+
         // =================================================================================
         // --- URL de Google Sheets con tu inventario ---
         // =================================================================================
@@ -217,6 +221,11 @@
             },
             mileageRanges: {
                 "0": "Cualquier Millaje", "1": "0-10000", "2": "10000-20000", "3": "20000-30000", "4": "30000-40000", "5": "40000-50000", "6": "50000-60000", "7": "60000-70000", "8": "70000-80000", "9": "80000-90000", "10": "90000-100000", "11": "100000-110000", "12": "110000-120000", "13": "120000-130000", "14": "130000-140000", "15": "140000-150000", "16": "150000-160000"
+            },
+            sortByPrice: {
+                "none": "Sin Orden",
+                "asc": "Menor Precio",
+                "desc": "Mayor Precio"
             }
         };
 
@@ -232,12 +241,15 @@
         const formSuccessMessage = document.getElementById('form-success-message');
         const imageLightbox = document.getElementById('image-lightbox');
         const lightboxImage = document.getElementById('lightbox-image');
-        
+
+        // Elementos del filtro
+        const searchBar = document.getElementById('search-bar');
         const filterMake = document.getElementById('filter-make');
         const filterYear = document.getElementById('filter-year');
         const filterBodyType = document.getElementById('filter-bodyType');
         const filterPrice = document.getElementById('filter-price');
         const filterMileage = document.getElementById('filter-mileage');
+        const filterSortPrice = document.getElementById('filter-sort-price');
         const applyFiltersBtn = document.getElementById('apply-filters-btn');
         const resetFiltersBtn = document.getElementById('reset-filters-btn');
 
@@ -259,9 +271,9 @@
                     const values = row.split(',');
                     const carObject = {};
                     headers.forEach((header, index) => {
-                        carObject[header.trim()] = values[index].trim();
+                        carObject[`${header.trim()}`] = values[`${index}`].trim();
                     });
-                    
+
                     // Convertir tipos de datos y procesar galería
                     return {
                         id: parseInt(carObject.id, 10),
@@ -368,54 +380,78 @@
             populateSelect(filterBodyType, filterOptions.bodyTypes, "Body Type");
             populateRangeSelect(filterPrice, filterOptions.priceRanges, true);
             populateRangeSelect(filterMileage, filterOptions.mileageRanges, false);
+            populateSortSelect(filterSortPrice, filterOptions.sortByPrice);
         }
 
         function populateSelect(selectElement, options, defaultText) {
             selectElement.innerHTML = `<option value="">${defaultText}</option>`;
             options.forEach(option => { selectElement.innerHTML += `<option value="${option}">${option}</option>`; });
         }
-        
+
         function populateRangeSelect(selectElement, ranges, isPrice) {
             selectElement.innerHTML = '';
             for (const key in ranges) {
-                const value = ranges[key];
+                const value = ranges[`${key}`];
                 let text;
-                if (key === "0") { text = value; } 
+                if (key === "0") { text = value; }
                 else if (isPrice) { const [min, max] = value.split('-').map(Number);
-                text = `$${min.toLocaleString()} - $${max.toLocaleString()}`; } 
+                text = `$${min.toLocaleString()} - $${max.toLocaleString()}`; }
                 else { const [min, max] = value.split('-').map(Number);
                 text = `${min.toLocaleString()} - ${max.toLocaleString()}`; }
                 selectElement.innerHTML += `<option value="${key}">${text}</option>`;
             }
         }
 
+        function populateSortSelect(selectElement, options) {
+            selectElement.innerHTML = '';
+            for (const key in options) {
+                selectElement.innerHTML += `<option value="${key}">${options[`${key}`]}</option>`;
+            }
+        }
+
         function applyFilters() {
             let tempFilteredCars = [...cars];
+            const searchTerm = searchBar.value.toLowerCase();
             const make = filterMake.value;
             const year = filterYear.value;
             const bodyType = filterBodyType.value;
             const priceRangeKey = filterPrice.value;
             const mileageRangeKey = filterMileage.value;
+            const sortOrder = filterSortPrice.value;
+
+            // Filtro por nombre
+            if (searchTerm) {
+                tempFilteredCars = tempFilteredCars.filter(c => c.name.toLowerCase().includes(searchTerm));
+            }
+
             if (make) tempFilteredCars = tempFilteredCars.filter(c => c.make === make);
             if (year) tempFilteredCars = tempFilteredCars.filter(c => c.year == year);
             if (bodyType) tempFilteredCars = tempFilteredCars.filter(c => c.bodyType === bodyType);
-            
+
             if (priceRangeKey !== "0") {
-                const [min, max] = filterOptions.priceRanges[priceRangeKey].split('-').map(Number);
+                const [min, max] = filterOptions.priceRanges[`${priceRangeKey}`].split('-').map(Number);
                 tempFilteredCars = tempFilteredCars.filter(c => c.price >= min && c.price <= max);
             }
 
             if (mileageRangeKey !== "0") {
-                const [min, max] = filterOptions.mileageRanges[mileageRangeKey].split('-').map(Number);
+                const [min, max] = filterOptions.mileageRanges[`${mileageRangeKey}`].split('-').map(Number);
                 tempFilteredCars = tempFilteredCars.filter(c => c.mileage >= min && c.mileage <= max);
             }
-            
+
+            // Ordenar por precio
+            if (sortOrder === 'asc') {
+                tempFilteredCars.sort((a, b) => a.price - b.price);
+            } else if (sortOrder === 'desc') {
+                tempFilteredCars.sort((a, b) => b.price - a.price);
+            }
+
             currentPage = 1;
             populateInventory(tempFilteredCars);
         }
-        
+
         function resetFilters() {
             document.querySelectorAll('#filters select').forEach(select => select.selectedIndex = 0);
+            searchBar.value = '';
             currentPage = 1;
             populateInventory(cars);
         }
@@ -423,7 +459,7 @@
        window.openModal = function(carId) {
             const car = cars.find(c => c.id === carId);
             if (!car) return;
-            
+
             modalContent.innerHTML = `
                 <div class="relative">
                     <button onclick="closeModal()" class="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 z-20">
@@ -433,11 +469,9 @@
                         <img id="main-modal-image" src="${car.image}" alt="${car.name}" class="w-full h-full object-cover">
                     </div>
                      <div class="p-6 md:p-8">
-                        <!-- Tamaño de fuente reducido para nombre, año y precio -->
                         <h2 class="text-2xl font-bold text-white mb-1">${car.name} <span class="text-blue-400">${car.year}</span></h2>
                         <p class="text-2xl font-bold text-blue-500 mb-3">$${car.price.toLocaleString()} USD</p>
-                        
-                        <!-- Contenedor de descripción con altura fija y scroll interno -->
+
                         <div class="mb-6 max-h-[100px] overflow-y-auto bg-gray-700/30 p-3 rounded-lg">
                             <p class="text-gray-300">${car.description}</p>
                         </div>
@@ -464,7 +498,6 @@
                         
                         <div class="flex flex-col sm:flex-row gap-4">
                             <button onclick="buyOnWhatsApp('${car.name} ${car.year}')" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300 text-lg flex items-center justify-center gap-2">
-                                <!-- Ícono de WhatsApp oficial corregido -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                                 </svg>
@@ -483,7 +516,7 @@
             modalContent.classList.add('scale-95');
             document.body.style.overflow = 'auto';
         }
-        
+
         window.buyOnWhatsApp = function(carName = '') {
             const message = carName ?
             encodeURIComponent(`Hola, estoy interesad@ en comprar el ${carName}.`) : encodeURIComponent(`Hola, estoy interesad@ en sus vehículos y opciones de financiamiento.`);
@@ -514,6 +547,10 @@
         document.getElementById('contact-whatsapp-btn-desktop').addEventListener('click', (e) => { e.preventDefault(); buyOnWhatsApp(); });
         document.getElementById('contact-whatsapp-btn-mobile').addEventListener('click', (e) => { e.preventDefault(); buyOnWhatsApp(); });
         document.getElementById('apply-now-whatsapp-btn').addEventListener('click', (e) => { e.preventDefault(); buyOnWhatsApp(); });
+        
+        // Event Listeners para los nuevos elementos
+        searchBar.addEventListener('input', applyFilters);
+        filterSortPrice.addEventListener('change', applyFilters);
 
         // --- Initial Load ---
         // Se llama a la nueva función para cargar los datos y luego se inicia la página.
