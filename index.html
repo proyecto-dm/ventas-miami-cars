@@ -19,13 +19,24 @@
   <meta property="og:image" content="https://ventas-miami-cars.pages.dev/img/og-cover.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Preload de imagen hero (opcional) -->
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1920&auto=format&fit=crop">
+  <!-- Preload Hero -->
+  <link rel="preload" as="image"
+        href="https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1920&auto=format&fit=crop"
+        imagesrcset="https://images.unsplash.com/photo-1555215695-3004980ad54e?q=70&w=960&auto=format&fit=crop 960w,
+                      https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1440&auto=format&fit=crop 1440w,
+                      https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1920&auto=format&fit=crop 1920w"
+        imagesizes="100vw">
 
   <!-- Estilos -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Preconnect a hosts de imágenes comunes de tu sitio -->
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="preconnect" href="https://i.ibb.co" crossorigin>
+  <link rel="preconnect" href="https://placehold.co" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -40,8 +51,6 @@
     .filter-select{ background-color:#374151;border-color:#4b5563; }
     #image-lightbox{ transition:opacity .3s ease; z-index:100; }
     #lightbox-image{ max-width:90vw; max-height:90vh; object-fit:contain; }
-    /* CTA flotante opcional:
-    .wa-float{ position:fixed; bottom:20px; right:20px; z-index:9999; background:#25D366; color:#fff; padding:12px 16px; border-radius:999px; font-weight:700; text-decoration:none; box-shadow:0 10px 20px rgba(0,0,0,.15) } .wa-float:hover{opacity:.9} */
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100">
@@ -70,7 +79,7 @@
   </header>
 
   <main>
-    <!-- HERO SEO (H1/H2 + CTA a WhatsApp y a inventario) -->
+    <!-- HERO -->
     <section class="hero-section h-screen flex items-center justify-center text-center pt-16">
       <div class="container mx-auto px-6">
         <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-4">Carros usados en Miami para latinos – Atención en español</h1>
@@ -89,7 +98,7 @@
 
         <div id="filters" class="bg-gray-800 p-6 rounded-lg mb-12 shadow-md">
           <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-4">
-            <input id="search-bar" type="text" placeholder="Buscar por nombre..." class="filter-select w-full sm:max-w-md p-3 rounded text-white" />
+            <input id="search-bar" type="text" placeholder="Buscar por marca, modelo o año..." class="filter-select w-full sm:max-w-md p-3 rounded text-white" aria-label="Buscar por marca, modelo o año" />
             <select id="filter-sort-price" class="filter-select w-full sm:max-w-xs p-3 rounded text-white" aria-label="Ordenar por precio"></select>
           </div>
           <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -110,11 +119,15 @@
           <p id="loading-message" class="col-span-full text-center text-gray-400 py-16">Cargando inventario...</p>
         </div>
 
-        <!-- Grid estático semilla -->
+        <!-- Grid estático semilla (con optimizaciones de imagen) -->
         <div id="static-seed-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
           <!-- Card 1 -->
           <article class="card-gradient rounded-lg overflow-hidden shadow-lg">
-            <img src="https://placehold.co/800x534/1f2937/ffffff?text=Toyota+Corolla+2018" alt="Toyota Corolla 2018 usado en Miami para latinos" loading="lazy" class="w-full h-auto object-cover rounded-md max-h-96 mx-auto">
+            <img src="https://placehold.co/800x534/1f2937/ffffff?text=Toyota+Corolla+2018"
+                 alt="Toyota Corolla 2018 usado en Miami para latinos"
+                 loading="lazy" decoding="async" fetchpriority="low"
+                 width="800" height="534" style="aspect-ratio: 800/534;"
+                 class="w-full h-auto object-cover rounded-md max-h-96 mx-auto">
             <div class="p-6">
               <h3 class="text-xl font-bold text-white">Toyota Corolla</h3>
               <p class="text-blue-400 font-semibold">2018</p>
@@ -128,7 +141,11 @@
 
           <!-- Card 2 -->
           <article class="card-gradient rounded-lg overflow-hidden shadow-lg">
-            <img src="https://placehold.co/800x534/1f2937/ffffff?text=Honda+Civic+2019" alt="Honda Civic 2019 usado en Miami para latinos" loading="lazy" class="w-full h-auto object-cover rounded-md max-h-96 mx-auto">
+            <img src="https://placehold.co/800x534/1f2937/ffffff?text=Honda+Civic+2019"
+                 alt="Honda Civic 2019 usado en Miami para latinos"
+                 loading="lazy" decoding="async" fetchpriority="low"
+                 width="800" height="534" style="aspect-ratio: 800/534;"
+                 class="w-full h-auto object-cover rounded-md max-h-96 mx-auto">
             <div class="p-6">
               <h3 class="text-xl font-bold text-white">Honda Civic</h3>
               <p class="text-blue-400 font-semibold">2019</p>
@@ -136,13 +153,17 @@
                 <span><strong class="text-white">52,000</strong> millas</span>
               </div>
               <div class="mt-4 text-2xl font-bold text-white">$14,900 USD</div>
-              <button onclick="buyOnWhatsApp('Honda Civic 2019')" class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Comprar por WhatsApp</button>
+              <button onclick="buyOnWhatsApp('Honda Civic 2019')" class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duración-300">Comprar por WhatsApp</button>
             </div>
           </article>
 
           <!-- Card 3 -->
           <article class="card-gradient rounded-lg overflow-hidden shadow-lg">
-            <img src="https://placehold.co/800x534/1f2937/ffffff?text=Ford+Escape+2017" alt="Ford Escape 2017 usada en Miami para latinos" loading="lazy" class="w-full h-auto object-cover rounded-md max-h-96 mx-auto">
+            <img src="https://placehold.co/800x534/1f2937/ffffff?text=Ford+Escape+2017"
+                 alt="Ford Escape 2017 usada en Miami para latinos"
+                 loading="lazy" decoding="async" fetchpriority="low"
+                 width="800" height="534" style="aspect-ratio: 800/534;"
+                 class="w-full h-auto object-cover rounded-md max-h-96 mx-auto">
             <div class="p-6">
               <h3 class="text-xl font-bold text-white">Ford Escape</h3>
               <p class="text-blue-400 font-semibold">2017</p>
@@ -150,7 +171,7 @@
                 <span><strong class="text-white">80,000</strong> millas</span>
               </div>
               <div class="mt-4 text-2xl font-bold text-white">$10,500 USD</div>
-              <button onclick="buyOnWhatsApp('Ford Escape 2017')" class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Comprar por WhatsApp</button>
+              <button onclick="buyOnWhatsApp('Ford Escape 2017')" class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duración-300">Comprar por WhatsApp</button>
             </div>
           </article>
         </div>
@@ -180,7 +201,11 @@
     <section id="nosotros" class="py-20 bg-gray-800/50">
       <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
         <div class="md:w-1/2">
-          <img src="https://i.ibb.co/MDSzmnfg/concesionario.png" alt="Concesionario y vendedor en español" loading="lazy" class="rounded-lg shadow-lg">
+          <img src="https://i.ibb.co/MDSzmnfg/concesionario.png"
+               alt="Concesionario y vendedor en español"
+               loading="lazy" decoding="async" fetchpriority="low"
+               style="width:100%;height:auto;aspect-ratio:16/9;"
+               class="rounded-lg shadow-lg">
         </div>
         <div class="md:w-1/2">
           <h2 class="text-3xl font-bold mb-4">Tu vendedor de confianza en español</h2>
@@ -201,7 +226,7 @@
       </div>
     </section>
 
-    <!-- FAQ visible (actualizado: envío a los 50 estados) -->
+    <!-- FAQ -->
     <section class="py-16 bg-gray-900">
       <div class="container mx-auto px-6">
         <h2 class="text-3xl font-bold mb-6">Preguntas frecuentes</h2>
@@ -252,7 +277,6 @@
   <footer class="bg-gray-800 border-t border-gray-700 py-8">
     <div class="container mx-auto px-6 text-center text-gray-400">
       <p>© 2025 Ventas Miami Cars. Todos los derechos reservados.</p>
-      <!-- Se quitaron los enlaces externos que abrían páginas vacías -->
       <div class="mt-4">
         <a id="cta-footer-whatsapp" href="#" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">Cotizar por WhatsApp</a>
       </div>
@@ -271,104 +295,37 @@
 
   <!-- JSON-LD: AutoDealer -->
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"AutoDealer",
-    "name":"Ventas Miami Cars",
-    "url":"https://ventas-miami-cars.pages.dev",
-    "description":"Venta de carros usados en Miami con atención 100% en español y envío a todo EE.UU.",
-    "areaServed":"US",
-    "availableLanguage":"es",
-    "telephone":"+58 412 416 5937"
-  }
+  {"@context":"https://schema.org","@type":"AutoDealer","name":"Ventas Miami Cars","url":"https://ventas-miami-cars.pages.dev","description":"Venta de carros usados en Miami con atención 100% en español y envío a todo EE.UU.","areaServed":"US","availableLanguage":"es","telephone":"+58 412 416 5937"}
   </script>
 
-  <!-- JSON-LD: FAQPage (envío a los 50 estados) -->
+  <!-- JSON-LD: FAQPage -->
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {
-        "@type":"Question",
-        "name":"¿Envían carros a mi estado?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"Sí, enviamos a todo Estados Unidos (los 50 estados) desde Miami. Pide tu cotización por WhatsApp para conocer tiempos y costos."
-        }
-      },
-      {
-        "@type":"Question",
-        "name":"¿Atienden 100% en español?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"Sí, te atendemos en español durante todo el proceso, desde la cotización hasta el envío."
-        }
-      },
-      {
-        "@type":"Question",
-        "name":"¿Puedo comprar sin historial de crédito?",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"Existen opciones y alternativas. Escríbenos por WhatsApp y te orientamos con tu caso."
-        }
-      }
-    ]
-  }
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Envían carros a mi estado?","acceptedAnswer":{"@type":"Answer","text":"Sí, enviamos a todo Estados Unidos (los 50 estados) desde Miami. Pide tu cotización por WhatsApp para conocer tiempos y costos."}},{"@type":"Question","name":"¿Atienden 100% en español?","acceptedAnswer":{"@type":"Answer","text":"Sí, te atendemos en español durante todo el proceso, desde la cotización hasta el envío."}},{"@type":"Question","name":"¿Puedo comprar sin historial de crédito?","acceptedAnswer":{"@type":"Answer","text":"Existen opciones y alternativas. Escríbenos por WhatsApp y te orientamos con tu caso."}}]}
   </script>
 
-  <!-- JSON-LD: Car + Offer para las 3 cards semilla (WhatsApp con tu número) -->
+  <!-- JSON-LD: Car + Offer para las 3 cards semilla -->
   <script type="application/ld+json">
-  [
-    {
-      "@context":"https://schema.org",
-      "@type":"Car",
-      "name":"Toyota Corolla 2018",
-      "brand":"Toyota",
-      "model":"Corolla",
-      "vehicleModelDate":"2018",
-      "image":"https://placehold.co/800x534",
-      "offers":{"@type":"Offer","price":"11900","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://wa.me/584124165937?text=Hola%20estoy%20interesado%20en%20Toyota%20Corolla%202018"}
-    },
-    {
-      "@context":"https://schema.org",
-      "@type":"Car",
-      "name":"Honda Civic 2019",
-      "brand":"Honda",
-      "model":"Civic",
-      "vehicleModelDate":"2019",
-      "image":"https://placehold.co/800x534",
-      "offers":{"@type":"Offer","price":"14900","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://wa.me/584124165937?text=Hola%20estoy%20interesado%20en%20Honda%20Civic%202019"}
-    },
-    {
-      "@context":"https://schema.org",
-      "@type":"Car",
-      "name":"Ford Escape 2017",
-      "brand":"Ford",
-      "model":"Escape",
-      "vehicleModelDate":"2017",
-      "image":"https://placehold.co/800x534",
-      "offers":{"@type":"Offer","price":"10500","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://wa.me/584124165937?text=Hola%20estoy%20interesado%20en%20Ford%20Escape%202017"}
-    }
-  ]
+  [{"@context":"https://schema.org","@type":"Car","name":"Toyota Corolla 2018","brand":"Toyota","model":"Corolla","vehicleModelDate":"2018","image":"https://placehold.co/800x534","offers":{"@type":"Offer","price":"11900","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://wa.me/584124165937?text=Hola%20estoy%20interesado%20en%20Toyota%20Corolla%202018"}},{"@context":"https://schema.org","@type":"Car","name":"Honda Civic 2019","brand":"Honda","model":"Civic","vehicleModelDate":"2019","image":"https://placehold.co/800x534","offers":{"@type":"Offer","price":"14900","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://wa.me/584124165937?text=Hola%20estoy%20interesado%20en%20Honda%20Civic%202019"}},{"@context":"https://schema.org","@type":"Car","name":"Ford Escape 2017","brand":"Ford","model":"Escape","vehicleModelDate":"2017","image":"https://placehold.co/800x534","offers":{"@type":"Offer","price":"10500","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://wa.me/584124165937?text=Hola%20estoy%20interesado%20en%20Ford%20Escape%202017"}}]
   </script>
 
   <script>
   document.addEventListener('DOMContentLoaded', async () => {
-    // --- Config (respeta tus datos) ---
+    // --- Config ---
     const WHATSAPP_NUMBER = '584124165937';
     const CONTACT_EMAIL   = 'proyectodm0713@gmail.com';
-
-    // URL de Google Sheets con tu inventario (se respeta tu valor)
     const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSMxVL6SFVU3JRZjGeLM2SIWo-dJ9hgYh1OSwx-qlzULxR7ALGUo7ZlANA2Jki-H8jf3LTQjUh-oGBG/pub?gid=1730125342&single=true&output=csv';
 
-    // --- Global Vars ---
+    // --- Global ---
     let cars = [];
     let filteredCars = [];
     let currentPage = 1;
     const itemsPerPage = 9;
 
-    // --- Filter Options ---
+    // Helpers
+    const formatNumber = (n) => Number.isFinite(n) ? n.toLocaleString() : '0';
+    const norm = (s='') => s.toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+
+    // Filtros options
     const filterOptions = {
       years: [], makes: [], bodyTypes: [],
       priceRanges: {"0":"Cualquier Precio","1":"10000-15000","2":"15000-20000","3":"20000-25000","4":"25000-30000","5":"30000-35000","6":"35000-40000","7":"40000-45000","8":"45000-50000","9":"50000-55000","10":"55000-60000","11":"60000-65000","12":"65000-70000"},
@@ -376,7 +333,7 @@
       sortByPrice: {"none":"Sin Orden","asc":"Menor Precio","desc":"Mayor Precio"}
     };
 
-    // --- DOM Elements ---
+    // DOM
     const inventoryGrid = document.getElementById('inventory-grid');
     const loadingMessage = document.getElementById('loading-message');
     const noResultsDiv = document.getElementById('no-results');
@@ -396,26 +353,21 @@
     const filterYear = document.getElementById('filter-year');
     const filterBodyType = document.getElementById('filter-bodyType');
     const filterPrice = document.getElementById('filter-price');
-    theFilterMileage = document.getElementById('filter-mileage'); // conservar id
     const filterMileage = document.getElementById('filter-mileage');
     const filterSortPrice = document.getElementById('filter-sort-price');
     const applyFiltersBtn = document.getElementById('apply-filters-btn');
     const resetFiltersBtn = document.getElementById('reset-filters-btn');
 
-    // CTA extras a WhatsApp (sin cambiar tu número)
-    const ctaHero = document.getElementById('cta-hero-whatsapp');
-    const ctaNosotros = document.getElementById('cta-nosotros-whatsapp');
-    const ctaFooter = document.getElementById('cta-footer-whatsapp');
-
-    // Utilidad para abrir WhatsApp con mensaje
-    window.buyOnWhatsApp = function(carName = '') {
+    // CTA WhatsApp
+    const buyOnWhatsApp = (carName = '') => {
       const message = carName
         ? encodeURIComponent(`Hola, estoy interesad@ en comprar el ${carName}.`)
         : encodeURIComponent(`Hola, estoy interesad@ en sus vehículos y opciones de financiamiento.`);
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
     };
+    window.buyOnWhatsApp = buyOnWhatsApp;
 
-    // Cargar inventario desde Google Sheets
+    // Datos
     async function loadInventoryFromSheet(sheetURL) {
       try {
         const response = await fetch(sheetURL);
@@ -425,23 +377,26 @@
 
         return rows.map(row => {
           const values = row.split(',');
-          const carObject = {};
-          headers.forEach((header, index) => { carObject[`${header.trim()}`] = values[`${index}`].trim(); });
+          const obj = {};
+          headers.forEach((h, i) => obj[h.trim()] = (values[i] || '').trim());
+
+          const priceNum = parseInt(obj.price, 10);
+          const mileageNum = parseInt(obj.mileage, 10);
 
           return {
-            id: parseInt(carObject.id, 10),
-            year: parseInt(carObject.year, 10),
-            make: carObject.make,
-            name: carObject.name,
-            bodyType: carObject.bodyType,
-            drivetrain: carObject.drivetrain,
-            transmission: carObject.transmission,
-            vin: carObject.vin,
-            mileage: parseInt(carObject.mileage, 10),
-            price: parseInt(carObject.price, 10),
-            image: carObject.image,
-            gallery: carObject.gallery ? carObject.gallery.split(';').map(url => url.trim()) : [],
-            description: carObject.description
+            id: parseInt(obj.id, 10),
+            year: parseInt(obj.year, 10),
+            make: obj.make,
+            name: obj.name,
+            bodyType: obj.bodyType,
+            drivetrain: obj.drivetrain,
+            transmission: obj.transmission,
+            vin: obj.vin,
+            mileage: Number.isFinite(mileageNum) ? mileageNum : 0,
+            price: Number.isFinite(priceNum) ? priceNum : 0,
+            image: obj.image,
+            gallery: obj.gallery ? obj.gallery.split(';').map(u => u.trim()) : [],
+            description: obj.description
           };
         });
       } catch (error) {
@@ -452,58 +407,59 @@
     }
 
     // Lightbox
-    window.openLightbox = function(imageUrl){ lightboxImage.src = imageUrl; imageLightbox.classList.remove('opacity-0','pointer-events-none'); }
-    window.closeLightbox = function(){ imageLightbox.classList.add('opacity-0','pointer-events-none'); lightboxImage.src=""; }
+    window.openLightbox = function(imageUrl){ lightboxImage.src = imageUrl; imageLightbox.classList.remove('opacity-0','pointer-events-none'); };
+    window.closeLightbox = function(){ imageLightbox.classList.add('opacity-0','pointer-events-none'); lightboxImage.src=""; };
 
     // Paginación
     function updatePagination(){
       const totalPages = Math.ceil(filteredCars.length / itemsPerPage);
       const paginationContainer = document.getElementById('pagination-container');
       if (totalPages <= 1){ paginationContainer.innerHTML=''; return; }
-      let paginationHTML = '<div class="flex justify-center items-center space-x-2 mt-8">';
-      if (currentPage > 1){ paginationHTML += `<button onclick="changePage(${currentPage-1})" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition duration-300">Anterior</button>`; }
-      const startPage = Math.max(1, currentPage-2);
-      const endPage = Math.min(totalPages, currentPage+2);
-      if (startPage > 1){
-        paginationHTML += `<button onclick="changePage(1)" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition duration-300">1</button>`;
-        if (startPage > 2){ paginationHTML += '<span class="px-3 py-2 text-gray-400">...</span>'; }
+      let html = '<div class="flex justify-center items-center space-x-2 mt-8">';
+      if (currentPage > 1){ html += `<button onclick="changePage(${currentPage-1})" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition">Anterior</button>`; }
+      const start = Math.max(1, currentPage-2);
+      const end = Math.min(totalPages, currentPage+2);
+      if (start > 1){
+        html += `<button onclick="changePage(1)" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition">1</button>`;
+        if (start > 2){ html += '<span class="px-3 py-2 text-gray-400">...</span>'; }
       }
-      for (let i=startPage; i<=endPage; i++){
-        const isActive = i===currentPage;
-        const buttonClass = isActive ? 'px-3 py-2 bg-blue-600 text-white rounded-lg' : 'px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition duration-300';
-        paginationHTML += `<button onclick="changePage(${i})" class="${buttonClass}">${i}</button>`;
+      for (let i=start; i<=end; i++){
+        const active = i===currentPage;
+        html += `<button onclick="changePage(${i})" class="px-3 py-2 ${active?'bg-blue-600':'bg-gray-700 hover:bg-gray-600'} text-white rounded-lg transition">${i}</button>`;
       }
-      if (endPage < totalPages){
-        if (endPage < totalPages-1){ paginationHTML += '<span class="px-3 py-2 text-gray-400">...</span>'; }
-        paginationHTML += `<button onclick="changePage(${totalPages})" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition duration-300">${totalPages}</button>`;
+      if (end < totalPages){
+        if (end < totalPages-1){ html += '<span class="px-3 py-2 text-gray-400">...</span>'; }
+        html += `<button onclick="changePage(${totalPages})" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition">${totalPages}</button>`;
       }
-      if (currentPage < totalPages){ paginationHTML += `<button onclick="changePage(${currentPage+1})" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition duration-300">Siguiente</button>`; }
-      paginationHTML += '</div>';
-      paginationContainer.innerHTML = paginationHTML;
+      if (currentPage < totalPages){ html += `<button onclick="changePage(${currentPage+1})" class="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition">Siguiente</button>`; }
+      html += '</div>';
+      paginationContainer.innerHTML = html;
     }
+    window.changePage = function(page){ currentPage = page; populateInventory(filteredCars); updatePagination(); document.getElementById('inventario').scrollIntoView({behavior:'smooth'}); };
+    function getPaginatedCars(list){ const start = (currentPage-1)*itemsPerPage; return list.slice(start, start+itemsPerPage); }
 
-    window.changePage = function(page){ currentPage = page; populateInventory(filteredCars); updatePagination(); document.getElementById('inventario').scrollIntoView({behavior:'smooth'}); }
-    function getPaginatedCars(carList){ const startIndex = (currentPage-1)*itemsPerPage; return carList.slice(startIndex, startIndex+itemsPerPage); }
-
-    function populateInventory(carList){
-      filteredCars = carList;
-      const paginatedCars = getPaginatedCars(carList);
+    // Render
+    function populateInventory(list){
+      filteredCars = list;
+      const pageItems = getPaginatedCars(list);
       inventoryGrid.innerHTML = '';
       loadingMessage.classList.add('hidden');
+      if (list.length > 0){ staticSeedGrid.classList.add('hidden'); }
+      noResultsDiv.classList.toggle('hidden', list.length > 0);
 
-      // Si hay resultados dinámicos, ocultamos grid estático
-      if (carList.length > 0){ staticSeedGrid.classList.add('hidden'); }
-
-      noResultsDiv.classList.toggle('hidden', carList.length > 0);
-      paginatedCars.forEach(car => {
+      pageItems.forEach(car => {
         const card = `
           <div class="card-gradient rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer" onclick="openModal(${car.id})">
-            <img src="${car.image}" alt="${car.name} usado en Miami para latinos" loading="lazy" class="w-full h-auto object-cover rounded-md max-h-96 mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/ffffff?text=Imagen+no+disponible';">
+            <img src="${car.image}" alt="${car.name} usado en Miami para latinos"
+                 loading="lazy" decoding="async" fetchpriority="low"
+                 width="600" height="400" style="aspect-ratio: 3 / 2;"
+                 class="w-full h-auto object-cover rounded-md max-h-96 mx-auto"
+                 onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/ffffff?text=Imagen+no+disponible';">
             <div class="p-6">
               <h3 class="text-xl font-bold text-white">${car.name}</h3>
-              <p class="text-blue-400 font-semibold">${car.year}</p>
-              <div class="mt-4 flex justify-between items-center text-gray-300"><span><strong class="text-white">${car.mileage.toLocaleString()}</strong> millas</span></div>
-              <div class="mt-4 text-2xl font-bold text-white">$${car.price.toLocaleString()} USD</div>
+              <p class="text-blue-400 font-semibold">${car.year || ''}</p>
+              <div class="mt-4 flex justify-between items-center text-gray-300"><span><strong class="text-white">${formatNumber(car.mileage)}</strong> millas</span></div>
+              <div class="mt-4 text-2xl font-bold text-white">$${formatNumber(car.price)} USD</div>
               <button class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Ver Detalles</button>
             </div>
           </div>`;
@@ -513,59 +469,90 @@
     }
 
     function populateFilters(){
-      filterOptions.makes = [...new Set(cars.map(car => car.make))].sort();
-      filterOptions.years = [...new Set(cars.map(car => car.year))].sort((a,b)=>b-a);
-      filterOptions.bodyTypes = [...new Set(cars.map(car => car.bodyType))].sort();
+      filterOptions.makes = [...new Set(cars.map(c => c.make).filter(Boolean))].sort();
+      filterOptions.years = [...new Set(cars.map(c => c.year).filter(Boolean))].sort((a,b)=>b-a);
+      filterOptions.bodyTypes = [...new Set(cars.map(c => c.bodyType).filter(Boolean))].sort();
+
       populateSelect(filterMake, filterOptions.makes, "Marca");
       populateSelect(filterYear, filterOptions.years, "Año");
-      populateSelect(filterBodyType, filterOptions.bodyTypes, "Body Type");
+      populateSelect(filterBodyType, filterOptions.bodyTypes, "Tipo");
       populateRangeSelect(filterPrice, filterOptions.priceRanges, true);
       populateRangeSelect(filterMileage, filterOptions.mileageRanges, false);
       populateSortSelect(filterSortPrice, filterOptions.sortByPrice);
     }
-
-    function populateSelect(selectElement, options, defaultText){ selectElement.innerHTML = `<option value="">${defaultText}</option>`; options.forEach(o => { selectElement.innerHTML += `<option value="${o}">${o}</option>`; }); }
-    function populateRangeSelect(selectElement, ranges, isPrice){
-      selectElement.innerHTML = '';
+    function populateSelect(sel, options, defaultText){
+      sel.innerHTML = `<option value="">${defaultText}</option>`;
+      options.forEach(o => sel.innerHTML += `<option value="${o}">${o}</option>`);
+    }
+    function populateRangeSelect(sel, ranges, isPrice){
+      sel.innerHTML = '';
       for (const key in ranges){
-        const value = ranges[key]; let text;
+        const value = ranges[key];
+        let text;
         if (key === "0"){ text = value; }
-        else if (isPrice){ const [min,max] = value.split('-').map(Number); text = `$${min.toLocaleString()} - $${max.toLocaleString()}`; }
-        else { const [min,max] = value.split('-').map(Number); text = `${min.toLocaleString()} - ${max.toLocaleString()}`; }
-        selectElement.innerHTML += `<option value="${key}">${text}</option>`;
+        else {
+          const [min,max] = value.split('-').map(Number);
+          text = isPrice ? `$${min.toLocaleString()} - $${max.toLocaleString()}` : `${min.toLocaleString()} - ${max.toLocaleString()}`;
+        }
+        sel.innerHTML += `<option value="${key}">${text}</option>`;
       }
     }
-    function populateSortSelect(selectElement, options){ selectElement.innerHTML = ''; for (const key in options){ selectElement.innerHTML += `<option value="${key}">${options[key]}</option>`; } }
+    function populateSortSelect(sel, options){
+      sel.innerHTML = '';
+      for (const key in options){ sel.innerHTML += `<option value="${key}">${options[key]}</option>`; }
+      sel.value = 'none';
+    }
 
     function applyFilters(){
       let temp = [...cars];
-      const searchTerm = searchBar.value.toLowerCase();
+
+      const qRaw = (searchBar.value || '').trim();
+      const q = norm(qRaw);
       const make = filterMake.value;
       const year = filterYear.value;
       const bodyType = filterBodyType.value;
-      const priceRangeKey = filterPrice.value;
-      const mileageRangeKey = filterMileage.value;
+      const priceKey = filterPrice.value;
+      const mileageKey = filterMileage.value;
       const sortOrder = filterSortPrice.value;
 
-      if (searchTerm){ temp = temp.filter(c => c.name.toLowerCase().includes(searchTerm)); }
+      // Buscador: marca + modelo + tipo + año + extras
+      if (q){
+        temp = temp.filter(c => {
+          const fields = [c.name, c.make, c.bodyType, c.drivetrain, c.transmission, c.vin, String(c.year)]
+            .filter(Boolean).map(v => norm(v));
+          return fields.some(v => v.includes(q));
+        });
+      }
+
       if (make) temp = temp.filter(c => c.make === make);
-      if (year) temp = temp.filter(c => c.year == year);
+      if (year) temp = temp.filter(c => String(c.year) === String(year));
       if (bodyType) temp = temp.filter(c => c.bodyType === bodyType);
 
-      if (priceRangeKey !== "0"){ const [min,max] = filterOptions.priceRanges[priceRangeKey].split('-').map(Number); temp = temp.filter(c => c.price >= min && c.price <= max); }
-      if (mileageRangeKey !== "0"){ const [min,max] = filterOptions.mileageRanges[mileageRangeKey].split('-').map(Number); temp = temp.filter(c => c.mileage >= min && c.mileage <= max); }
+      if (priceKey !== "0"){
+        const [min,max] = filterOptions.priceRanges[priceKey].split('-').map(Number);
+        temp = temp.filter(c => c.price >= min && c.price <= max);
+      }
+      if (mileageKey !== "0"){
+        const [min,max] = filterOptions.mileageRanges[mileageKey].split('-').map(Number);
+        temp = temp.filter(c => c.mileage >= min && c.mileage <= max);
+      }
 
       if (sortOrder === 'asc'){ temp.sort((a,b)=>a.price-b.price); }
       else if (sortOrder === 'desc'){ temp.sort((a,b)=>b.price-a.price); }
 
-      currentPage = 1; populateInventory(temp);
+      currentPage = 1;
+      populateInventory(temp);
     }
 
     function resetFilters(){
       document.querySelectorAll('#filters select').forEach(s => s.selectedIndex = 0);
-      searchBar.value = ''; currentPage = 1; populateInventory(cars);
+      filterSortPrice.value = 'none';
+      searchBar.value = '';
+      currentPage = 1;
+      populateInventory(cars);
     }
 
+    // Modal
     window.openModal = function(carId){
       const car = cars.find(c => c.id === carId); if (!car) return;
       modalContent.innerHTML = `
@@ -574,31 +561,35 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
           <div class="w-full h-64 md:h-96 bg-gray-700">
-            <img id="main-modal-image" src="${car.image}" alt="${car.name}" class="w-full h-full object-cover">
+            <img id="main-modal-image" src="${car.image}" alt="${car.name}"
+                 loading="eager" decoding="async" width="1200" height="800" style="aspect-ratio: 3 / 2;"
+                 class="w-full h-full object-cover">
           </div>
           <div class="p-6 md:p-8">
-            <h2 class="text-2xl font-bold text-white mb-1">${car.name} <span class="text-blue-400">${car.year}</span></h2>
-            <p class="text-2xl font-bold text-blue-500 mb-3">$${car.price.toLocaleString()} USD</p>
-            <div class="mb-6 max-h-[100px] overflow-y-auto bg-gray-700/30 p-3 rounded-lg"><p class="text-gray-300">${car.description}</p></div>
+            <h2 class="text-2xl font-bold text-white mb-1">${car.name} <span class="text-blue-400">${car.year || ''}</span></h2>
+            <p class="text-2xl font-bold text-blue-500 mb-3">$${formatNumber(car.price)} USD</p>
+            <div class="mb-6 max-h-[100px] overflow-y-auto bg-gray-700/30 p-3 rounded-lg"><p class="text-gray-300">${car.description || ''}</p></div>
 
             ${car.gallery?.length ? `
               <h4 class="text-xl font-bold text-white mb-4">Galería</h4>
               <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-6">
                 ${car.gallery.map(img => `
-                  <div class="aspect-w-1 aspect-h-1 cursor-pointer" onclick="openLightbox('${img}')">
-                    <img src="${img}" alt="Galería de ${car.name}" class="w-full h-full object-cover rounded-md transition-transform transform hover:scale-105" loading="lazy">
+                  <div class="cursor-pointer" onclick="openLightbox('${img}')">
+                    <img src="${img}" alt="Galería de ${car.name}" loading="lazy" decoding="async"
+                         width="300" height="200" style="aspect-ratio: 3 / 2;"
+                         class="w-full h-full object-cover rounded-md transition-transform transform hover:scale-105">
                   </div>`).join('')}
               </div>` : ''}
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center border-t border-b border-gray-700 py-4 mb-6">
-              <div><p class="text-sm text-gray-400">Millaje</p><p class="font-bold text-lg">${car.mileage.toLocaleString()}</p></div>
+              <div><p class="text-sm text-gray-400">Millaje</p><p class="font-bold text-lg">${formatNumber(car.mileage)}</p></div>
               <div><p class="text-sm text-gray-400">Tipo</p><p class="font-bold text-lg">${car.bodyType || 'N/A'}</p></div>
               <div><p class="text-sm text-gray-400">Tracción</p><p class="font-bold text-lg">${car.drivetrain || 'N/A'}</p></div>
               <div><p class="text-sm text-gray-400">Transmisión</p><p class="font-bold text-lg">${car.transmission || 'N/A'}</p></div>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4">
-              <button onclick="buyOnWhatsApp('${car.name} ${car.year}')" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300 text-lg flex items-center justify-center gap-2">
+              <button onclick="buyOnWhatsApp('${(car.name || '') + ' ' + (car.year || '')}')" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300 text-lg flex items-center justify-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 Comprar
               </button>
@@ -609,7 +600,7 @@
     };
     window.closeModal = function(){ modal.classList.add('opacity-0','pointer-events-none'); modalContent.classList.add('scale-95'); document.body.style.overflow='auto'; };
 
-    // Formularios
+    // Form
     function handleContactFormSubmit(event){
       event.preventDefault();
       const name = document.getElementById('name').value;
@@ -628,27 +619,26 @@
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModal(); closeLightbox(); } });
     mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-    applyFiltersBtn.addEventListener('click', applyFilters);
-    resetFiltersBtn.addEventListener('click', resetFilters);
     contactForm.addEventListener('submit', handleContactFormSubmit);
 
-    document.getElementById('contact-whatsapp-btn-desktop').addEventListener('click', e => { e.preventDefault(); buyOnWhatsApp(); });
-    document.getElementById('contact-whatsapp-btn-mobile').addEventListener('click', e => { e.preventDefault(); buyOnWhatsApp(); });
-    document.getElementById('apply-now-whatsapp-btn').addEventListener('click', e => { e.preventDefault(); buyOnWhatsApp(); });
-    document.getElementById('cta-hero-whatsapp').addEventListener('click', e => { e.preventDefault(); buyOnWhatsApp(); });
-    document.getElementById('cta-nosotros-whatsapp').addEventListener('click', e => { e.preventDefault(); buyOnWhatsApp(); });
-    document.getElementById('cta-footer-whatsapp').addEventListener('click', e => { e.preventDefault(); buyOnWhatsApp(); });
+    // Filtros / buscador
+    applyFiltersBtn.addEventListener('click', applyFilters);
+    resetFiltersBtn.addEventListener('click', resetFilters);
+    searchBar.addEventListener('input', applyFilters);
+    searchBar.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); applyFilters(); } });
+    [filterMake,filterYear,filterBodyType,filterPrice,filterMileage,filterSortPrice]
+      .forEach(sel => sel.addEventListener('change', applyFilters));
 
     // Carga inicial
     cars = await loadInventoryFromSheet(GOOGLE_SHEET_URL);
     if (cars.length > 0){ populateInventory(cars); populateFilters(); }
-    else { // Fallback SEO: mostrar las 3 cards estáticas
+    else {
       staticSeedGrid.classList.remove('hidden');
       loadingMessage.classList.add('hidden');
       noResultsDiv.classList.add('hidden');
     }
 
-    // Medición de clics a WhatsApp (si tienes GA4 cargado en otra parte no fallará)
+    // Medición clics WhatsApp (si tienes GA4)
     document.addEventListener('click', function(e){
       const a = e.target.closest('a,button');
       if(!a) return;
